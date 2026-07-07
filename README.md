@@ -9,8 +9,8 @@ https://posit.co/download/rstudio-desktop/ (RStudio)
 Typical installation time for both R and RStudio is within an hour.
 Instructions to run on demo dataset:
 Replace the following codes with your specific working directory and file/sheet name.
-setwd("E:/SJTU/Research/Meta-analysis/Draft/Nature HB/Code")
-dat = read_excel("effect_sizes_cal.xlsx",sheet = "subgroup-diff")
+setwd("E:/SJTU/Research/Meta-analysis/Code")
+dat = read_excel("demo.xlsx",sheet = "effect sizes")
 Expected outputs are tables summarizing results from subgroup meta-analysis and meta-regression analysis, as well as various plots including funnel plot, forest plot, baujat plots and risk-of-bias plot.
 Expected running time for demo is typically ranging from a few seconds to a few minutes.
 How to run the code on your data: formatting your data to the “demo.xlsx” template.
