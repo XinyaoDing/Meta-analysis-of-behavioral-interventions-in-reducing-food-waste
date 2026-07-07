@@ -1,6 +1,7 @@
 library(readxl)
-setwd("E:/SJTU/Research/Meta-analysis/Draft/Nature HB/Code")
-dat1 = read_excel("effect_sizes_cal.xlsx",sheet = "subgroup-diff")
+#set working directory
+setwd("E:/SJTU/Research/Meta-analysis/Code")
+dat1 = read_excel("demo.xlsx",sheet = "effect sizes")
 
 # Subgroup analysis using metafor packages
 library(metafor)
@@ -49,12 +50,11 @@ library(metafor)
 library(ggplot2)
 library(MuMIn)
 library(dmetar)
-dat2 = read_excel("effect_sizes_cal.xlsx",sheet = "M.R")
+dat2 = read_excel("demo.xlsx",sheet = "effect sizes")
 multimodel.inference(TE = "Hedges_g", 
                      seTE = "g_Standard_error",
                      data = dat2,
-                     predictors = c("Follow_up", "Setting", "Duration", "Stage", 
-                                    "Location", "Age","Gender","Food_type","Measurement"),
+                     predictors = c("Setting", "Location", "Gender", "Food_type"),
                      interaction = FALSE)
 
 #meta-regression
