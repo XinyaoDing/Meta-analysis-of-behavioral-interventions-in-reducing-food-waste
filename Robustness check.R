@@ -1,4 +1,23 @@
-setwd("E:/SJTU/Research/Meta-analysis/Draft/Nature HB/Code")
+library(readxl)
+#set working directory
+setwd("E:/SJTU/Research/Meta-analysis/Code")
+dat1 = read_excel("demo.xlsx",sheet = "effect sizes")
+
+#Subgroup analysis using meta packages
+library(meta)
+m.gen <- metagen(TE = dat1$Hedges_g,
+                 seTE = dat1$g_Standard_error,
+                 studlab = dat1$ID,
+                 data = dat1,
+                 sm = "SMD",
+                 common = FALSE,
+                 random = TRUE,
+                 method.tau = "REML",
+                 method.random.ci = "HK",
+                 subgroup = dat1$`Subgroup 3`,
+                 tau.common = FALSE,
+                 title = "FW reduction interventions")
+summary(m.gen)
 
 #Influential studies
 library(ggplot2)
@@ -39,12 +58,22 @@ legend(x = -2.5, y = 0.01,
 # Add a title
 title("Contour-Enhanced Funnel Plot (FW reduction interventions)")
 
-#Risk-of-bias plot
+#Risk-of-bias plot for RCTs (RoB2.0)
 library(robvis)
-my_rob_data <- read.csv("robdata.csv", header = TRUE)
+my_rob_data = read_excel("demo.xlsx",sheet = "RoB2.0")
 rob_summary(data = my_rob_data, 
             tool = "ROB2",
             overall = TRUE)
 png("risk_of_bias_plot.png", width = 10, height = 3.4, units = "in", res = 1000)
 rob_summary(data = my_rob_data, tool = "ROB2", overall = TRUE)
+dev.off()
+
+#Risk-of-bias plot for quasi-experiments (ROBINS-I)
+library(robvis)
+my_rob_data = read_excel("demo.xlsx",sheet = "ROBINS-I")
+rob_summary(data = my_rob_data, 
+            tool = "ROBINS-I",
+            overall = TRUE)
+png("risk_of_bias_plot.png", width = 10, height = 3.4, units = "in", res = 1000)
+rob_summary(data = my_rob_data, tool = "ROBINS-I", overall = TRUE)
 dev.off()
