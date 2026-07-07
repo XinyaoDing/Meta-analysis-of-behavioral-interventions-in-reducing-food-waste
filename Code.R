@@ -94,6 +94,7 @@ dat2$Location <- relevel(dat2$Location, ref = "High Income")
 dat2$Gender <- relevel(dat2$Gender, ref = "mixed")
 dat2$Follow_up <- relevel(dat2$Follow_up, ref = "immediate effect")
 
+#basic meta regression model
 m.reg <- rma(yi = dat2$Hedges_g, 
              sei = dat2$g_Standard_error, 
              data = dat2, 
@@ -101,10 +102,26 @@ m.reg <- rma(yi = dat2$Hedges_g,
              mods = ~ Food_type
              + Setting 
              + Location
-             + Duration 
-             + Gender,
+             + Gender
              + Follow_up, 
              test = "knha")
+summary(m.reg, showlevels = TRUE)
+
+#multilevel meta regression model
+#"ID/ID2" represents a nested structure
+#Level 1 (Highest level): ID captures the between-study (between-paper) variance.
+#Level 2 (Nested level): ID2 (nested within ID) captures the within-paper variance, i.e., variability among different effect sizes reported within the same paper/study.
+m.reg <- rma.mv(yi = dat2$Hedges_g, 
+                V = dat2$g_Variance, 
+                data = dat2, 
+                method = "REML",
+                random = ~ 1 | ID / ID2,
+                mods = ~ Food_type
+                + Setting 
+                + Location
+                + Gender
+                + Follow_up, 
+                test = "knha")
 summary(m.reg, showlevels = TRUE)
 
 
