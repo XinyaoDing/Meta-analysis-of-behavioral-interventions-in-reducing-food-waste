@@ -1,4 +1,4 @@
-This repository stores the code developed for the paper "Leveraging behavioral interventions to tackle consumer food waste: Evidence from a meta-analysis of field experiments". 
+This repository stores the code developed for the paper "Behavioral levers for reducing global food waste: Evidence from a meta-analysis of 141 field experiments". 
 The file "Code.R" stores the code developed for subgroup meta-analysis and meta-regression. The file "Robustness check.R" stores the code developed for funnel plot, influential studies analysis, outliers identification, and risk of bias analysis.
 All the software packages used are open source and freely accessible.
 A small dataset to demo the code is stored under the name "demo.xlsx". The dataset will be replaced by the full dataset used in this study when it is officially published.
